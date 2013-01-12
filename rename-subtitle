@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# make an array with files in which space are replaced.
-#MKV=($(ls *.mkv | sed 's/\ /_/g'))
-#SMI=($(ls *.smi | sed 's/\ /_/g'))
-#SMI=("$(ls *.srt)")
-SMI=("$(ls | egrep '\.srt$|\.smi$')")
+# make an array with files, srt and smi 
+sub=("$(ls | egrep '\.srt$|\.smi$')")
 
 index=0
 for FILE in *.mkv
 do
     echo "${FILE}"
-    echo "${SMI[$index]}"
+    echo "${sub[$index]}"
     echo
     ((index++))
     #FILE=${FILE%.mkv}
@@ -28,8 +25,8 @@ esac
 index=0
 for FILE in *.mkv
 do
-    extension="${SMI[$index]##*.}"
-    mv "${SMI[$index]}" "${FILE%.mkv}.${extension}"
+    extension="${sub[$index]##*.}"
+    mv "${sub[$index]}" "${FILE%.mkv}.${extension}"
     ((index++))
 done
 
